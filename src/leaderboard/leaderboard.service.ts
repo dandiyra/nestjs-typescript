@@ -5,9 +5,6 @@ import { Leaderboard } from './entities/leaderboard.entity';
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
-
-
-
 @Injectable()
 export class LeaderboardService {
   constructor(@InjectRepository(Leaderboard) private leaderboardRepository: Repository<Leaderboard>) {
@@ -23,6 +20,7 @@ export class LeaderboardService {
       "leaderboard.score",
     ])
     .orderBy("leaderboard.score", "DESC")
+    .limit(10)
     .getRawMany()
     
     return leaderboard;

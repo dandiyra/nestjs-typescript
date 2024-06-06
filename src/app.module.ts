@@ -4,6 +4,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { AuthModule } from "./auth/auth.module";
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { ScoreModule } from './score/score.module';
+import { ThrottlerModule } from "@nestjs/throttler";
 
 @Module({
   imports: [
@@ -26,6 +27,10 @@ import { ScoreModule } from './score/score.module';
         }
       }
     }),
+    ThrottlerModule.forRoot([{
+      ttl: 60000,
+      limit: 10,
+    }]),
     AuthModule,
     LeaderboardModule,
     ScoreModule
